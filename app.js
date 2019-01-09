@@ -13,6 +13,12 @@ app.set('view engine', 'ejs');
 
 mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true});
 
+const itemsSchema = {
+    name: String
+};
+
+const Item = mongoose.model("Item", itemsSchema);
+
 const items = [];
 const works = [];
 
