@@ -18,12 +18,39 @@ const itemsSchema = {
 
 const Item = mongoose.model("Item", itemsSchema);
 
+const item1 = new Item({
+    name: "This is a todo list"
+});
+
+const item2 = new Item({
+    name: "Hit like"
+});
+const item3 = new Item({
+    name: "Thanks"
+});
+
+const defaultItems = [item1, item2, item3];
+
+// Item.insertMany(defaultItems, function (err) {
+//     if (err)
+//         console.log(err);
+//     else
+//         console.log("Succesfully added");
+// });
+
 const items = [];
 const works = [];
 
 
 app.get("/", function(req, res){
-    res.render("list", {listTitle: Today, listItems: items});
+
+    Item.find({}, function (err, foundItems) {
+        if (err)
+            console.log(err);
+        else
+            res.render("list", {listTitle: "Today", listItems: foundItems});
+    });
+
 
 });
 
@@ -36,7 +63,6 @@ app.post("/", function (req, res) {
         items.push(item);
         res.redirect("/");
     }
-
 });
 
 app.get("/work", function (req, res) {
