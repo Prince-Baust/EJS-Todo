@@ -31,28 +31,37 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
-// Item.insertMany(defaultItems, function (err) {
-//     if (err)
-//         console.log(err);
-//     else
-//         console.log("Succesfully added");
-// });
-
-const items = [];
 const works = [];
 
 
 app.get("/", function(req, res){
 
     Item.find({}, function (err, foundItems) {
-        if (err)
-            console.log(err);
-        else
-            res.render("list", {listTitle: "Today", listItems: foundItems});
+
+        if (foundItems.length === 0){
+            Item.insertMany(defaultItems, function (err) {
+                if (err)
+                    console.log(err);
+                else
+                    console.log("Succesfully added");
+            });
+            res.redirect("/");
+        } else{
+            res.render("list", {listTitle: "Today", listItems: foundItems})
+        }
     });
 
 
 });
+
+
+
+
+
+
+
+
+
 
 app.post("/", function (req, res) {
     let item = req.body.newItem;
