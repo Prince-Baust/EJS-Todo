@@ -3,7 +3,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const date = require(__dirname + "/date.js");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
@@ -24,9 +23,7 @@ const works = [];
 
 
 app.get("/", function(req, res){
-    const day = date.getDay();
-
-    res.render("list", {listTitle: day, listItems: items});
+    res.render("list", {listTitle: Today, listItems: items});
 
 });
 
