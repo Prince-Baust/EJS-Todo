@@ -50,28 +50,23 @@ app.get("/", function(req, res){
             res.render("list", {listTitle: "Today", listItems: foundItems})
         }
     });
-
-
 });
 
 
 
 
 
-
-
-
-
-
 app.post("/", function (req, res) {
-    let item = req.body.newItem;
-    if (req.body.list === "Work"){
-        works.push(item);
-        res.redirect("/work");
-    }else{
-        items.push(item);
-        res.redirect("/");
-    }
+    const itemName = req.body.newItem;
+
+    const itemN = new Item({
+        name: itemName
+    });
+
+    itemN.save();
+
+    res.redirect("/");
+
 });
 
 app.get("/work", function (req, res) {
