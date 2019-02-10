@@ -66,13 +66,7 @@ app.post("/", function (req, res) {
 
 });
 
-app.get("/work", function (req, res) {
-   res.render("list", {listTitle: "Work", listItems: works});
-});
 
-app.post("/work", function (req, res) {
-    res.redirect("/work");
-});
 
 app.post("/delete", function (req, res) {
    const checkedItemId = req.body.checkbox;
